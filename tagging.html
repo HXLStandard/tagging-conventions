@@ -1,195 +1,519 @@
-<main>
-  <p><em>Release 1.0 final, 2016-03-18 (<a href="/standard/1_0final/tagging/">permalink</a>, <a href="/standard/1_0beta/tagging/">previous release</a>)</em></p>
-  <section id="introduction">
+<div>
+  <p>
+    <i>Release 1.1, 2018-04-30 (<a
+    href="http://hxlstandard.org/standard/tagging">permalink</a>, <a
+    href="http://hxlstandard.org/standard/1_1final/tagging/">previous
+    release</a>)</i>
+  </p>
+  <p>
+    <i>Part of the <a
+    href="http://hxlstandard.org/standard/1_1final/">HXL 1.1
+    standard</a>.</i>
+  </p>
+  <section id="intro">
     <h1>1. Introduction</h1>
-    <p>This document is part of the <a href="http://hxlstandard.org">Humanitarian Exchange Language</a> (HXL), a standard for increasing the efficiency and effectiveness of data exchange during humanitarian crises.</p>
-    <p>The HXL standard consists of two normative parts:</p>
+    <p>
+      This document is part of the <a
+      href="http://hxlstandard.org">Humanitarian Exchange Language</a>
+      (HXL) version 1.1, a standard for increasing the efficiency and
+      effectiveness of data exchange during humanitarian crises. This
+      new version is fully backwards-compatible with data produced using
+      HXL 1.0 (released 18 March 2016), and adds several new features,
+      including JSON-based encodings and a standard way to refer to
+      taxonomies/controlled vocabularies. There are also several new
+      hashtags and attributes in the <a
+      href="http://hxlstandard.org/standard/1_1final/dictionary/">hashtag
+      dictionary</a>.
+    </p>
+    <p>
+      The intended audience for this specification is
+      information-management professionals and software developers who
+      require a formal definition of the HXL syntax. Most users who
+      simply want to add hashtags to their data may prefer the <a
+      href="http://hxlstandard.org/postcards/">HXL postcards</a> and the
+      tutorial information at <a
+      href="http://hxlstandard.org">hxlstandard.org</a>, as well as
+      interactive HXL tool support under development at the <a
+      href="https://tools.humdata.org">Humanitarian Data Exchange</a>
+      (HDX).
+    </p>
+    <p>
+      The HXL standard consists of two normative parts:
+    </p>
     <ol>
-      <li><strong><cite>HXL tagging conventions</cite></strong> (this document) — instructions for adding HXL tags to spreadsheets.</li>
-      <li><cite><a href="/standard/1_0final/dictionary/">HXL hashtag dictionary</a></cite> — a list of hashtags for identifying humanitarian data fields.</li>
+      <li>
+        HXL tagging conventions (this document) — instructions for
+        adding HXL hashtags to spreadsheets.
+      </li>
+      <li>
+        <a
+            href="http://hxlstandard.org/standard/1_1final/dictionary/">HXL
+        hashtag dictionary</a> — a list of hashtags for
+        identifying humanitarian data fields.
+      </li>
     </ol>
-    <p>There are also two non-normative annexes:</p>
-    <ol>
-      <li><a href="/postcards/">HXL postcards</a> — two-sided 10×15 cm (4×6 in) cards in multiple languages, for quick reference.</li>
-      <li><a href="/classification/">Classification codes</a> — recommended taxonomies and code lists for use in HXL-encoded datasets.</li>
-    </ol>
-    <section id="philosophy">
-      <h2>1.1. Design philosophy</h2>
-      <p>HXL is a cooperative rather than a competitive standard. Most data standards  dictate to users how they should collect and format their data; HXL, on the other hand,  encourages organisations  to add hashtags to their existing datasets, without requiring new skills, software tools, and business processes.</p>
-      <p>The primary focus of HXL is tabular-style data such as spreadsheets  or API output from database tables, which represent the vast majority of the operational data collected in the humanitarian sphere; however,  HXL hashtags can potentially have other applications, including labelling attributes for map layers or identifying data types in SMS messages.</p>
+    <section id="design">
+      <h4>1.1. Design philosophy</h4>
+      <p>
+        HXL is a lightweight standard by design. Most data standards
+        dictate to users how they should collect and format their
+        data; HXL, on the other hand, encourages organisations to add
+        hashtags to their existing datasets, without requiring new
+        skills or software tools, and interferes as little as possible
+        in their current ways of working.
+      </p>
+      <p>
+        The primary focus of HXL is tabular-style data such as
+        spreadsheets or API output from database tables, which
+        represent the vast majority of the operational data collected
+        in the humanitarian sphere; however, HXL hashtags can
+        potentially have other applications, including labelling
+        attributes for map layers or identifying data types in SMS
+        messages.
+      </p>
     </section>
     <section id="audience">
-      <h2>1.2. Target audience</h2>
-      <p> The standard's primary audience is information-management specialists who are familiar with spreadsheets or relational databases;  its secondary audience is computer programmers and database specialists looking to consume data  produced by those information-management specialists.</p>
+      <h3>1.2. Target audience</h3>
+      <p>
+        The standard's primary audiences are information-management
+        specialists who are familiar with spreadsheets or relational
+        databases, and computer programmers and database specialists
+        looking to consume data produced by those
+        information-management specialists.
+      </p>
     </section>
-    <section>
-      <h2>1.3. Terms of use</h2>
-      <p>HXL is available as an open standard —  the working groups have designed it for use with humanitarian data, but  people and organisations are welcome to use it for any purpose  they choose, as long as  they do not claim  support or endorsement from any members of the HXL working group or the organisations for which they work.  The authors offer no warranty of any kind, so  implementors use the standard at  their own risk.</p>
-      <p>The text of the standard itself is released into the public domain.</p>
+    <section id="terms">
+      <h3>1.3. Terms of use</h3>
+      <p>
+        HXL is available as an open standard — the working
+        groups have designed it for use with humanitarian data, but
+        people and organisations are welcome to use it for any purpose
+        they choose. Note, however, that users may not claim support
+        or endorsement from any members of the HXL working group or
+        the organisations for which they work. The authors offer no
+        warranty of any kind, so implementors use the standard at
+        their own risk.
+      </p>
+      <p>
+        The text of the standard itself is released into the public domain.
+      </p>
     </section>
-  </section>
-  <section>
-    <h1>2. Adding HXL tags to data</h1>
-    <p>Consider the following simple spreadsheet:</p>
-    <table>
-      <thead>
-        <tr>
-          <th>Location name</th>
-          <th>Location code</th>
-          <th>Number affected</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Camp A</td>
-          <td>01000001</td>
-          <td>2000</td>
-        </tr>
-        <tr>
-          <td>Camp B</td>
-          <td>01000002</td>
-          <td>750</td>
-        </tr>
-        <tr>
-          <td>Camp C</td>
-          <td>01000003</td>
-          <td>1920</td>
-        </tr>
-      </tbody>
-    </table>
-    <p>Datasets like  this — longer, of course, and with more columns — are the backbone of humanitarian information management, and they provide the input for most reports, maps, and visualisations coming out of a crisis. Unfortunately, creating those data products is time-consuming, and responders have to duplicate the work from crisis to crisis and even dataset to dataset, because it is hard to build reusable software tools that can understand the  many different ways responders may choose to label their data.  For example, the text header of the last column could have appeared in dozens of variants, and in several different languages:</p>
-    <ul>
-      <li>Number affected</li>
-      <li>Affected</li>
-      <li>People affected</li>
-      <li># de personnes concernées</li>
-      <li>Afectadas/os</li>
-      <li>عدد الأشخاص المتضررين</li>
-    </ul>
-    <p>Software tools need to be able to recognise that the figures in the third column refer to the number of people affected &mdash; regardless of how the data provider has decided to label it in the spreadsheet &mdash; so HXL adds a second header row containing short hashtags:</p>
-    <table>
-      <thead>
-        <tr>
-          <th>Location name</th>
-          <th>Location code</th>
-          <th>Number affected</th>
-        </tr>
-        <tr class="hxl">
-          <td>#loc+name</td>
-          <td>#loc+code</td>
-          <td>#affected</td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Camp A</td>
-          <td>01000001</td>
-          <td>2000</td>
-        </tr>
-        <tr>
-          <td>Camp B</td>
-          <td>01000002</td>
-          <td>750</td>
-        </tr>
-        <tr>
-          <td>Camp C</td>
-          <td>01000003</td>
-          <td>1920</td>
-        </tr>
-      </tbody>
-    </table>
-    <p>Now, whether the text at the top of the column reads “Number affected” or “عدد الأشخاص المتضررين”, software for cleaning, validating, analysing, mapping, or visualising the data can automatically recognise the hashtag <code>#affected</code> and use the figures below accordingly.</p>
-    <p>More than one row of headers may appear above the HXL hashtag row — the hashtags themselves act as a marker to show automated systems where the headers end and the data begins:</p>
-    <table>
-      <thead>
-        <tr>
-          <th colspan="2">Camp information</th>
-          <th>Needs</th>
-        </tr>
-        <tr>
-          <th>Location name</th>
-          <th>Location code</th>
-          <th>Number affected</th>
-        </tr>
-        <tr class="hxl">
-          <td>#loc+name</td>
-          <td>#loc+code</td>
-          <td>#affected</td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Camp A</td>
-          <td>01000001</td>
-          <td>2000</td>
-        </tr>
-        <tr>
-          <td>Camp B</td>
-          <td>01000002</td>
-          <td>750</td>
-        </tr>
-        <tr>
-          <td>Camp C</td>
-          <td>01000003</td>
-          <td>1920</td>
-        </tr>
-      </tbody>
-    </table>
-    <p>HXL software should expect to find the hashtag row anywhere within the <ins title="boldface added"><strong>first 25 rows</strong> of a dataset.</p>
   </section>
   <section id="tagging">
-    <h1>3. Structure of a HXL tag</h1>
-    <p>The root of a HXL hashtag follows the same syntactic rules as a Twitter hashtag: it begins with the octothorpe/pound sign (“#”) and contains only unaccented Roman alphabetic characters (so-called “ASCII letters,” “a” to “z”), Arabic numerals (“0” to “9”), and the underscore symbol (“_”). The first character must be alphabetic, and character case does not matter (<code>#ADM1</code> and <code>#adm1</code> are the same hashtag, though lower case is preferred for stylistic reasons). Here are some examples of syntactically-valid HXL hashtags:</p>
+    <h2>2. Adding HXL hashtags to data</h2>
+    <section id="tagging.spreadsheet">
+      <h3>2.1 Spreadsheet Data eg. csv, xls, xlsx</h3>
+      <p>
+          Consider the following simple spreadsheet:
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>LOCATION NAME</th>
+            <th>LOCATION CODE</th>
+            <th>NUMBER AFFECTED</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Camp A</td>
+            <td>01000001</td>
+            <td>2000</td>
+          </tr>
+          <tr>
+            <td>Camp B</td>
+            <td>01000002</td>
+            <td>750</td>
+          </tr>
+          <tr>
+            <td>Camp C</td>
+            <td>01000003</td>
+            <td>1920</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        Datasets like this — longer, of course, and with more
+        columns — are the backbone of humanitarian information
+        management, and they provide the input for most reports, maps,
+        and visualisations coming out of a crisis. Unfortunately,
+        creating those data products is time-consuming, and responders
+        have to duplicate the work from crisis to crisis and even
+        dataset to dataset, because it is hard to build reusable
+        software tools that can understand the many different ways
+        responders may choose to label their data. For example, the
+        text header of the last column could have appeared in dozens
+        of variants, and in several different languages:
+      </p>
+      <ul>
+        <li>Number affected</li>
+        <li>Affected</li>
+        <li>People affected</li>
+        <li># de personnes concernées</li>
+        <li>Afectadas/os</li>
+        <li>عدد الأشخاص المتضررين</li>
+      </ul>
+      <p>
+        Software tools need to be able to recognise that the figures
+        in the third column refer to the number of people affected
+        — regardless of how the data provider has decided to
+        label it in the spreadsheet — so HXL adds a second
+        header row containing short hashtags:
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>LOCATION NAME</th>
+            <th>LOCATION CODE</th>
+            <th>NUMBER AFFECTED</th>
+          </tr>
+          <tr class="hxl">
+            <td>#loc +name</td>
+            <td>#loc +code</td>
+            <td>#affected</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Camp A</td>
+            <td>01000001</td>
+            <td>2000</td>
+          </tr>
+          <tr>
+            <td>Camp B</td>
+            <td>01000002</td>
+            <td>750</td>
+          </tr>
+          <tr>
+            <td>Camp C</td>
+            <td>01000003</td>
+            <td>1920</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        Now, whether the text at the top of the column reads
+        "Number affected" or "عدد الأشخاص المتضررين",
+        software for cleaning, validating, analysing, mapping, or
+        visualising the data can automatically recognise the hashtag
+        #affected and use the figures below accordingly.
+      </p>
+      <p>
+        More than one row of headers may appear above the HXL hashtag
+        row — the hashtags themselves act as a marker to show
+        automated systems where the headers end and the data begins:
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th colspan="2">CAMP INFORMATION</th>
+            <th>NEEDS</th>
+          </tr>
+          <tr>
+            <th>LOCATION NAME</th>
+            <th>LOCATION CODE</th>
+            <th>NUMBER AFFECTED</th>
+          </tr>
+          <tr class="hxl">
+            <td>#loc +name</td>
+            <td>#loc +code</td>
+            <td>#affected</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Camp A</td>
+            <td>01000001</td>
+            <td>2000</td>
+          </tr>
+          <tr>
+            <td>Camp B</td>
+            <td>01000002</td>
+            <td>750</td>
+          </tr>
+          <tr>
+            <td>Camp C</td>
+            <td>01000003</td>
+            <td>1920</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        HXL software should expect to find the hashtag row anywhere
+        within the first 25 rows of a dataset and should assume that
+        all rows below the hashtag row contain data.
+      </p>
+    </section>
+    <section id="tagging.json">
+      <h3>2.2 JSON data</h3>
+      <p>
+        It is becoming increasingly common for organisations to share
+        data through APIs. HXL is well placed to add interoperability
+        to that data through its support for JSON, the format
+        most-commonly used by APIs. HXL is purposely restricted to a
+        simplified subset of the full JSON specification. In this
+        simplified subset, the data must be laid out in a
+        non-hierarchical and tabular form. Two such forms are
+        currently supported.
+      </p>
+      <section id="tagging.json.objects">
+        <h4>2.2.1. Array of objects JSON style</h4>
+        <p>
+          This is a very common way for data to be presented where
+          each row is a lookup between a hashtag key and a value:
+        </p>
+        <pre>[
+  {
+    "#hashtag": value,
+    "#hashtag": value
+  },
+  {
+    "#hashtag": value,
+    "#hashtag": value
+  }
+]</pre>
+        <p>
+          An example of this is shown below:
+        </p>
+        <pre>[
+  {
+    "#event+id": 1,
+    "#affected+killed": 1,
+    "#region": "Mediterranean",
+    "#meta+source+reliability": "Verified",
+    "#date+reported": "05/11/2015",
+    "#geo+lat": 36.891500,
+    "#geo+lon": 27.287700
+  },
+  {
+    "#event+id": 3,
+    "#affected+killed": 1,
+    "#region": "Central America incl. Mexico",
+    "#meta+source+reliability": "Partially Verified",
+    "#date+reported": "03/11/2015",
+    "#geo+lat": 15.956400,
+    "#geo+lon": -93.663100
+  }
+]</pre>
+        <p>
+          For repeated same named hashtags eg. to express multiple
+          sectors using repeated #sector columns, the equivalent in
+          this format is a comma separated list of sectors (see <a
+          href="#special.repeating.list">4.1.1. The +list
+          attribute</a>), e.g.
+        </p>
+        <pre>"#sector": "WASH,health"</pre>
+        <p>
+          Note that the array of objects form does not allow for
+          human-readable headers. If there is a demand for these
+          — and the array of arrays form outlined below does not
+          suffice — then they will appear in a future version of
+          the standard.
+        </p>
+        <p>
+          <b>Note:</b> HXL allows hashtag attributes to appear in any
+          order, case-insensitive, with or without whitespace
+          separating them, so these are all considered equivalent:
+          "#affected+f+children", "#affected
+          +children +f", and
+          "#affected+Children+F". In JSON objects, it is
+          essential that the property names be consistent, so you
+          should take the following steps when converting a HXL
+          hashtag specification (hashtag and attributes) for use as a
+          JSON object property:
+        </p>
+        <ol>
+          <li>Convert to lowercase.</li>
+          <li>Remove all whitespace.</li>
+          <li>Present the attributes in US-ASCII alphabetical
+          order.</li>
+        </ol>
+        <p>
+          Following these rules, the JSON property-name representation
+          of the above HXL hashtag specification will always be
+          "#affected+children+f".
+        </p>
+      </section>
+      <section id="tagging.json.arrays">
+        <h4>2.2.2. Array of arrays JSON style</h4>
+        <p>
+          Although not widely used, this form is ideally suited to
+          visualisations because it is significantly more compact than
+          the Array of Objects format as the hashtags are only defined
+          once in the first element of the Array:
+        </p>
+        <pre>[
+  ["#hashtag", "#hashtag"],
+  [value,value],
+  [value,value]
+]</pre>
+        <p>
+          Below is an example:
+        </p>
+        <pre>[
+  ["#event+id","#affected+killed","#region","#meta+source+reliability", "#date+reported","#geo+lat","#geo+lon"],
+  [1, 1, "Mediterranean", "Verified", "2015-11-05", 36.891500,27.287700],
+  [3, 1, "Central America incl. Mexico", "Partially Verified", "2015-11-03", 15.956400, -93.663099]
+]</pre>
+        <p>
+          If headers are needed, they can be added as an extra array prior to the hashtags.
+        </p>
+      </section>
+    </section>
+  </section>
+  <section id="hashtags">
+    <h2>3. Structure of a HXL hashtag</h2>
+    <p>
+      The root of a HXL hashtag follows the same syntactic rules as a
+      Twitter hashtag: it begins with the octothorpe/pound sign
+      ("#") and contains only unaccented Roman alphabetic
+      characters (so-called "ASCII letters,"
+      "a" to "z"), Arabic numerals
+      ("0" to "9"), and the underscore symbol
+      ("_"). The first character must be alphabetic, and
+      character case does not matter (#ADM1 and #adm1 are the same
+      hashtag, though lowercase is preferred for stylistic
+      reasons). Here are some examples of syntactically-valid HXL
+      hashtags:
+    </p>
     <ul>
-      <li><code>#sector</code></li>
-      <li><code>#org</code></li>
-      <li><code>#households</code></li>
-      <li><code>#impact</code></li>
+      <li>#sector</li>
+      <li>#org</li>
+      <li>#households</li>
+      <li>#impact</li>
     </ul>
-    <section id="attributes">
-      <h2>3.1. Hashtag attributes</h2>
-      <p>The core shared HXL hashtags describe high-level concepts like an organisation (<code>#org</code>), geographical coordinates (<code>#geo</code>), a humanitarian cluster or sector (<code>#sector</code>), the number of people affected (<code>#affected</code>), or a subdivision of a country (<code>#adm1</code>). Humanitarian datasets, however, often need to make finer-grained  distinctions. For example, is an organisation the funder (donor) or the implementing agency? Does a column contain the name of an  administrative subdivision or its code?</p>
-      <p>HXL allows  data providers to make  these distinctions by attaching <ins title="italics added"><i>attributes</i> to a hashtag.</p>
-      <section id="attribute-syntax">
-        <h3>3.1.1. Attribute syntax</h3>
-        <p>Attributes follow the same syntactic rules as hashtags, except that they begin with plus (“+”) rather than the octothorpe/pound sign (“#”), and follow the hashtag , with optional whitespace separating the attributes. A hashtag may have any number of attributes, and order does not matter, so <code>#org+funder+code</code> has exactly the same meaning as <code>#org+code+funder</code>. The following examples show attributes attached to hashtags to refine their meaning:</p>
+    <section id="hashtags.attributes">
+      <h3>3.1. Hashtag attributes</h3>
+      <p>
+        The core shared HXL hashtags describe high-level concepts like
+        an organisation (#org), geographical coordinates (#geo), a
+        humanitarian cluster or sector (#sector), the number of people
+        affected (#affected), or a subdivision of a country
+        (#adm1). Humanitarian datasets, however, often need to make
+        finer-grained distinctions. For example, is an organisation
+        the funder (donor) or the implementing agency? Does a column
+        contain the name of an administrative subdivision or its code?
+      </p>
+      <p>
+        HXL allows data providers to make these distinctions by attaching attributes to a hashtag.
+      </p>
+      <section id="hashtags.attributes.syntax">
+        <h4>3.1.1. Attribute syntax</h4>
+        <p>
+          Attributes follow the same syntactic rules as hashtags,
+          except that they begin with plus ("+") rather
+          than the octothorpe/pound sign ("#"), and follow
+          the hashtag , with optional whitespace separating the
+          attributes. A hashtag may have any number of attributes, and
+          order does not matter, so #org +funder +code has exactly the
+          same meaning as #org +code +funder. The following examples
+          show attributes attached to hashtags to refine their
+          meaning:
+        </p>
         <ul>
-          <li><code>#org+funder</code> — the funding organisation (e.g. a donor)</li>
-          <li><code>#org+funder+code</code> — a code for a funding organisation</li>
-          <li><code>#adm1+name+fr</code> — the name of an administrative level-one subdivision, in French</li>
-          <li><code>#adm1+code+pcode</code> — the p-code (place code) of an administrative level-one subdivision (adding +pcode to +code to further refine the code type)</li>
-          <li><code>#adm1+code+iso</code> — the ISO code of an administrative level-one subdivision (adding +iso to +code to further refine the code type)</li>
+          <li>
+            #org +funder — the funding organisation (e.g. a donor)
+          </li>
+          <li>
+            #org +funder +code — a machine-readable code (of
+            some type) for a funding organisation
+          </li>
+          <li>
+            #adm1 +name +fr — the name of an administrative
+            level-one subdivision, in French
+          </li>
+          <li>
+            #adm1 +code +v_pcode — the P-code (place code) of an
+            administrative level-one subdivision (adding +v_pcode to
+            +code to further refine the code type)
+          </li>
+          <li>
+            #adm1 +code +v_iso3 — the ISO code of an
+            administrative level-one subdivision (adding +v_iso3 to
+            +code to further refine the code type)
+          </li>
         </ul>
-        <p>Software processing HXL data may <ins title="bold added"><strong>ignore any attributes it does not recognise</strong> and simply process the core hashtag.</p>
+        <p>
+          Software processing HXL data may ignore any attributes it
+          does not recognise and simply process the core hashtag. For
+          more information on +v_ attributes, see <a
+          href="#hashtags.attributes.vocab">3.1.4. Attributes for
+          controlled vocabularies</a>.
+        </p>
+        <p>
+          <b>Note:</b> all attributes beginning with a single alphabetic
+          character followed by an underscore (e.g. +v_ and +x_) are
+          reserved for special use in HXL.
+        </p>
       </section>
-      <section id="common-attributes">
-        <h3>3.1.2. Common attributes</h3>
-        <p>Data  providers may invent their own attributes to suit their local data needs; however, there are some recommended common attributes that will be useful across many data types. There is a full list in the HXL core tagset, of which the following are some highlights:</p>
-        <dl>
-          <dt><code>+displaced +idp +injured +reached +refugees</code></dt>
-          <dd>Classifications for counts or descriptions of people, e.g. <code>#affected+idp</code> for the number of internally-displaced people.</dd>
-          <dt><code>+code</code></dt>
-          <dd>The value is a unique, machine-readable code, e.g. <code>#adm1+code</code> for an administrative level-one P-code.</dd>
-          <dt><code>+f +m +i</code></dt>
-          <dd>The value (usually a number) refers specifically to people of a specific gender, e.g. +affected+f for the number of female people affected.</dd>
-          <dt><code>+start +end</code></dt>
-          <dd>The value refers to the beginning or end, e.g. <code>#date+end</code> for the end date of an activity.</dd>
-        </dl>
-        <p>Note that none of these attributes is two letters long. Attributes consisting of two alphabetic letters, such as +ar or +es, are reserved for a special purpose, as described in the next section.</p>
+      <section id="hashtags.attributes.common">
+        <h4>3.1.2. Common attributes</h4>
+        <p>
+          Data providers may invent their own attributes to suit their
+          local data needs; however, there are some recommended common
+          attributes that will be useful across many data types. There
+          is a full list in the HXL core tagset<sup><a
+          href="#cmnt1">[a]</a></sup>, of which the following are some
+          highlights:
+        </p>
+        <blockquote>
+          +displaced +idps +injured +reached +refugees
+        </blockquote>
+        <p>
+          Classifications for counts or descriptions of people,
+          e.g. #affected +idps for the number of internally-displaced
+          people.
+        </p>
+        <blockquote>
+          +code
+        </blockquote>
+        <p>
+          The value is a unique, machine-readable code,
+          e.g. #adm1+code for an administrative level-one P-code.
+        </p>
+        <blockquote>
+          +f +m +i
+        </blockquote>
+        <p>
+          The value (usually a number) refers specifically to people
+          of a specific gender (or +i for non-binary), e.g. +affected
+          +f for the number of female people affected.
+        </p>
+        <blockquote>
+          +start +end
+        </blockquote>
+        <p>
+          The value refers to the beginning or end, e.g. #date+end for
+          the end date of an activity.
+        </p>
       </section>
-      <section id="language-attributes">
-        <h3>3.1.3. Attributes for languages</h3>
-        <p>Humanitarian crises often take place in multicultural areas, where different local groups speak different languages; furthermore, international responders helping with a crisis may need to work in their own languages as well. As a result, humanitarian datasets are sometimes multilingual, listing the same information in e.g. French and Arabic, or Dari and Pashto.</p>
-        <p>To make it easy to identify languages in HXL, the standard recommends that all two-character alphabetic attributes be reserved to represent ISO 639-1 language codes, such as  <code>+en</code> for English.  Data providers can use the attributes to mark the language of a column:</p>
+      <section id="hashtags.attributes.lang">
+        <h4>3.1.3. Attributes for languages</h4>
+        <p>
+          Humanitarian crises often take place in multicultural areas,
+          where different local groups speak different languages;
+          furthermore, international responders helping with a crisis
+          may need to work in their own languages as well. As a
+          result, humanitarian datasets are sometimes multilingual,
+          listing the same information in e.g. French and Arabic, or
+          Dari and Pashto.
+        </p>
+        <p>
+          To make it easy to identify languages in HXL, the standard
+          recommends that all two-character alphabetic attributes be
+          reserved to represent ISO 639-1 language codes, such as
+          +i_en for English. Data providers can use the attributes to
+          mark the language of a column:
+        </p>
         <table>
           <thead>
             <tr>
-              <th>Project title</th>
-              <th>Titre du projet</th>
+              <th>PROJECT TITLE</th>
+              <th>TITRE DU PROJET</th>
             </tr>
             <tr class="hxl">
-              <td>#activity+en</td>
-              <td>#activity+fr</td>
+              <td>#activity +i_en</td>
+              <td>#activity +i_fr</td>
             </tr>
           </thead>
           <tbody>
@@ -203,110 +527,332 @@
             </tr>
           </tbody>
         </table>
-        <p>The following language attributes (not a comprehensive list) are examples of those that might appear in international humanitarian datasets:</p>
+        <p>
+          The following language attributes (not a comprehensive list)
+          are examples of those that might appear in international
+          humanitarian datasets:
+        </p>
         <table>
-          <tr>
-            <td><code>+en</code></td>
-            <td>English</td>
-            <td><code>+fa</code></td>
-            <td>Dari / Farsi / Persian</td>
-          </tr>
-          <tr>
-            <td><code>+fr</code></td>
-            <td>French</td>
-            <td><code>+ps</code></td>
-            <td>Pashto</td>
-          </tr>
-          <tr>
-            <td><code>+ar</code></td>
-            <td>Arabic</td>
-            <td><code>+ms</code></td>
-            <td>Malay</td>
-          </tr>
-          <tr>
-            <td><code>+es</code></td>
-            <td>Spanish</td>
-            <td><code>+ur</code></td>
-            <td>Urdu</td>
-          </tr>
-          <tr>
-            <td><code>+ru</code></td>
-            <td>Russian</td>
-            <td><code>+tl</code></td>
-            <td>Tagalog</td>
-          </tr>
+          <tbody>
+            <tr>
+              <th>+i_en</th>
+              <td>English</td>
+              <th>+i_fa</th>
+              <td>Dari / Farsi / Persian</td>
+            </tr>
+            <tr>
+              <th>+i_fr</th>
+              <td>French</td>
+              <th>+i_ps</th>
+              <td>Pashto</td>
+            </tr>
+            <tr>
+              <th>+i_ar</th>
+              <td>Arabic</td>
+              <th>+i_ms</th>
+              <td>Malay</td>
+            </tr>
+            <tr>
+              <th>+i_es</th>
+              <td>Spanish</td>
+              <th>+i_ur</th>
+              <td>Urdu</td>
+            </tr>
+            <tr>
+              <th>+i_ru</th>
+              <td>Russian</td>
+              <th>+i_tl</th>
+              <td>Tagalog</td>
+            </tr>
+          </tbody>
         </table>
       </section>
+      <section id="hashtags.attributes.vocab">
+        <h4>3.1.4. Attributes for controlled vocabularies</h4>
+        <p>
+          New in version 1.1.
+        </p>
+        <p>
+          While the +code HXL attribute indicates that a value is a
+          machine-readable code of some kind, it does not tell exactly
+          what vocabulary, code list, or taxonomy is in use. Beginning
+          with release 1.1, any HXL attribute beginning in +v_
+          represents a short identifier for a controlled vocabulary,
+          which you can look up (if desired) from a master HXL dataset
+          at [url]<sup><a href="#cmnt2">[b]</a></sup>.
+        </p>
+        <p>
+          For example, the HXL hashtag specification #country +code
+          +v_iso3 indicates that the column contains country codes
+          from the "v_iso3" vocabulary. To find more
+          information about that vocabulary, software (or a human
+          reader) may look it up in the master dataset, and find
+          information like this:
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th>Vocabulary identifier</th>
+              <th>Vocabulary name</th>
+              <th>Controlling org</th>
+              <th>Home page</th>
+            </tr>
+            <tr class="hxl">
+              <td>#vocab +att</td>
+              <td>#vocab +name</td>
+              <td>#org +controlling</td>
+              <td>#vocab +url +home</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>+v_iso3</td>
+              <td>
+                ISO 3166-1 alpha 3: Codes for the representation of
+                names of countries and their subdivisions -- Part 1:
+                Country codes (3-letter identifiers)
+              </td>
+              <td>International Organization for Standardization (ISO)</td>
+              <td>https://www.iso.org/standard/63545.html</td>
+            </tr>
+          </tbody>
+        </table>
+        <p>
+          The #vocab hashtag is specific to this purpose, and not part
+          of the core HXL hashtags. The maintainers will be adding
+          additional columns to the dataset in the future, but these
+          four core columns, at a minimum, should always be present.
+        </p>
+        <p>
+          To request registering a new vocabulary identifier, please
+          post a message to the public <a
+          href="https://groups.google.com/forum/#!forum/hxlproject">hxlproject@googlegroups.com</a>
+          mailing list for discussion.
+        </p>
+      </section>
     </section>
-    <section id="extensions">
-      <h2>3.2. Creating extension tags</h2>
-      <p>The HXL core tags include tags that will be generally applicable to many humanitarian datasets, but it is impossible to anticipate every tag for every humanitarian need. This standard makes the following four recommendations for extending HXL tags and attributes:</p>
-      <ol>
-        <li>Whenever possible, take an existing tag with a broader meaning, and narrow it down with an attribute, e.g.  <code>#loc+hospital</code>.</li>
-        <li>When there is no applicable core tag, begin an extension tag with “x_”, so that it will not conflict with any future HXL core hashtags, e.g. <code>#x_toxicity</code>.</li>
-        <li>When software finds a HXL hashtag that it does not recognise, e.g. <code>#x_toxicity</code>, it should simply ignore the column of data.</li>
-        <li>When software finds a HXL attribute that it does not recognise, e.g. <code>#loc+hospital</code>, it should ignore the attribute but still process the tag and any other attributes it does recognise: in this case, it should behave  as if the dataset had contained simply <code>#loc</code>.</li>
+    <section id="hashtags.extensions">
+      <h3>3.2. Creating extension hashtags</h3>
+      <p>
+        The HXL core hashtags include hashtags that will be generally
+        applicable to many humanitarian datasets, but it is impossible
+        to anticipate every hashtag for every humanitarian need. This
+        standard makes the following four recommendations<sup><a
+        href="#cmnt3">[c]</a></sup><sup><a
+        href="#cmnt4">[d]</a></sup><sup><a href="#cmnt5">[e]</a></sup>
+        for extending HXL hashtags and attributes:
+      </p>
+      <ol start="1">
+        <li>
+          Whenever possible, take an existing hashtag with a broader
+          meaning, and narrow it down with an attribute, e.g. #loc
+          +hospital.
+        </li>
+        <li>
+          When there is no applicable core hashtag, begin an extension
+          hashtag with "x_", so that it will not conflict
+          with any future HXL core hashtags, e.g. #x_toxicity.
+        </li>
+        <li>
+          When software finds a HXL hashtag that it does not
+          recognise, e.g. #x_toxicity, it should simply ignore the
+          column of data.
+        </li>
+        <li>
+          When software finds a HXL attribute that it does not
+          recognise, e.g. #loc+hospital, it should ignore the
+          attribute but still process the hashtag and any other
+          attributes it does recognise: in this case, it should behave
+          as if the dataset had contained simply #loc.
+        </li>
       </ol>
-      <p>Note:  software designers may choose to warn about unrecognised tags and attributes, to help with error detection and quality control.</p>
+      <p>
+        <b>Note:</b> software designers may choose to warn about
+        unrecognised hashtags and attributes, to help with error
+        detection and quality control.
+      </p>
     </section>
-  </section>
-  <section id="special">
-    <h1>4. Special cases</h1>
-    <p>This section describes how to use HXL to deal with special cases that do not normally fit well into a tabular data model.</p>
-    <section id="repetition">
-      <h2>4.1. Repeating fields</h2>
-      <p>A tabular format works poorly for repeated fields (e.g. an activity taking place in more than one location); however, using HXL tags, it is possible to design a spreadsheet format that allows for a fixed amount of repetition.</p>
-      <p>For example, the HXL tag for a generic geographical code (like a P-code) is <code>#loc+code</code>. A 3W spreadsheet for a specific country could allow room for up to three geocodes like this:</p>
+    <section id="special">
+      <h1>4. Special cases</h1>
+      <p>
+        This section describes how to use HXL to deal with special
+        cases that do not normally fit well into a tabular data model.
+      </p>
+      <section id="special.repeating">
+        <h3>4.1. Repeating fields</h3>
+        <p>
+          A tabular format works poorly for repeated fields (e.g. an
+          activity taking place in more than one location); however,
+          using HXL hashtags, it is possible to design a spreadsheet
+          format that allows for a fixed upper-limit of repetition.
+        </p>
+        <p>
+          For example, the HXL hashtag for a generic geographical code
+          (like a P-code) is #loc+code. A 3W spreadsheet for a
+          specific country could allow room for up to three geocodes,
+          like this:
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th>P-CODE 1</th>
+              <th>P-CODE 2</th>
+              <th>P-CODE 3</th>
+            </tr>
+            <tr class="hxl">
+              <td>#loc+code</td>
+              <td>#loc+code</td>
+              <td>#loc+code</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>020503</td>
+            </tr>
+            <tr>
+              <td>060107</td>
+              <td>060108</td>
+            </tr>
+            <tr>
+              <td>173219</td>
+            </tr>
+            <tr>
+              <td>530012</td>
+            </tr>
+            <tr>
+              <td>530013</td>
+              <td>530015</td>
+              <td>279333</td>
+            </tr>
+          </tbody>
+        </table>
+        <p>
+          This approach is not currently possible with the <a
+          href="#tagging.json.objects">Array of objects</a> JSON
+          style, since any key may appear only once in a JSON
+          object. Using the Array of arrays JSON encoding, the above
+          example would look like this:
+        </p>
+        <pre>[
+  ["P-CODE 1", "P-CODE 2", "P-CODE 3"],              
+  ["#loc+code", "#loc+code", "#loc+code"],
+  ["020503"],
+  ["060107", "060108"],
+  ["173219"],
+  ["530013", "530015", "279333"]
+]</pre>
+        <p>
+          By reading the HXL hashtag, processing software can easily
+          recognize that the three columns represent (up to) three
+          values for the same field, even though the full column
+          titles differ, and even if the authors of the processing
+          software knew nothing about the specific conventions in use
+          in this country.
+        </p>
+      <section id="special.repeating.list">
+        <h4>4.1.1. The +list attribute</h4>
+        <p>
+          New in version 1.1.
+        </p>
+        <p>
+          As an alternative, HXL also supports the inclusion of
+          multiple values in a single field, such as a spreadsheet
+          cell, separated by a comma (or optionally, other
+          punctuation). Note that this method—while popular with
+          spreadsheet users—is not as reliable as using separate
+          columns, and will not allow you to use standard spreadsheet
+          functions for filtering and sorting while creating data. It
+          may also not be as well-supported by HXL-aware tools, such
+          as mapping and other visualisation services.
+        </p>
+        <p>
+          To include multiple values in a single cell, add the +list
+          attribute to the hashtag. Here is the earlier example recast
+          with multiple values in a single cell:
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th>P-CODE</th>
+            </tr>
+            <tr class="hxl">
+              <td>#loc +code +list</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>020503</td>
+            </tr>
+            <tr>
+              <td>060107, 060108</td>
+            </tr>
+            <tr>
+              <td>173219</td>
+            </tr>
+            <tr>
+              <td>530012</td>
+            </tr>
+            <tr>
+              <td>530013, 530015, 279333</td>
+            </tr>
+          </tbody>
+        </table>
+        <p>
+          This is the only approach currently possible for
+          representing repeating fields using the Array of objects
+          JSON style:
+        </p>
+        <pre>[
+  {
+    "#loc+code+list": "020503"
+  },
+  {
+    "#loc+code+list": "060107,060108"
+  },
+  {
+    "#loc+code+list": "173219"
+  },
+  {
+    "#loc+code+list": "530012"
+  },
+  {
+    "#loc+code+list": "530013,530015,279333"
+  }
+]</pre>
+        <p>
+          With the <a href="#tagging.json.arrays">Array of arrays</a>
+          JSON style, the above example would look much like the
+          spreadsheet table:
+        </p>
+        <pre>[
+  ["#loc+code"],
+  ["020503"],
+  ["060107,060108"],
+  ["173219"],
+  ["530013,530015,279333"]
+]</pre>
+        <p>
+          Note, again, that some HXL-aware software might not process
+          this approach correctly, and that it can affect the display
+          of reports, charts, and maps.
+        </p>
+      </section>
+    </section>
+    <section id="special.wide">
+      <h3>4.2. "Wide" (series) data</h3>
+      <p>
+        "Wide" datasets are optimised for reading rather
+        than machine processing. They place a series of data (usually
+        numbers) across a row, showing how information varies over
+        time, geographical area, demographic groups, or some other
+        criterion. Here is a simple, non-HXL example listing the
+        number of people of concern in each region during four
+        different years.
+      </p>
       <table>
         <thead>
           <tr>
-            <th>P-code 1</th>
-            <th>P-code 2</th>
-            <th>P-code 3</th>
-          </tr>
-          <tr class="hxl">
-            <td>#loc+code</td>
-            <td>#loc+code</td>
-            <td>#loc+code</td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>020503</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>060107</td>
-            <td>060108</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>173219</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>530012</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>530013</td>
-            <td>530015</td>
-            <td>279333</td>
-          </tr>
-        </tbody>
-      </table>
-      <p>By reading the HXL tag, processing software can easily recognize that the three columns represent (up to) three values for the same field, even though the full column titles differ, and even if the authors of the processing software knew nothing about the specific conventions in use in this country.</p>
-    </section>
-    <section id="wide">
-      <h2>4.1. “Wide” (series) data</h2>
-      <p>“Wide” datasets are optimised for reading rather than machine processing. They place a series of data (usually numbers) across a row, showing how information varies over time, geographical area, demographic groups, or some other criterion. Here is a simple, non-HXL example listing the number of people of concern in each region during four different years.</p>
-      <table>
-        <thead>
-          <tr>
-            <th>Region</th>
+            <th>REGION</th>
             <th>2008</th>
             <th>2009</th>
             <th>2010</th>
@@ -330,18 +876,26 @@
           </tr>
         </tbody>
       </table>
-      <p>This table presents some special challenges for tagging, because the columns headed “2008” to “2011” all represent the same kind of data, but in different years. Tagging them all as simply <code>#affected</code> loses important information about the series. The solution is to use an extra attribute, <code>+label</code>, to specify that the information in the header is a label for the data series:</p>
+      <p>
+        This table presents some special challenges for tagging,
+        because the columns headed "2008" to "2011" all represent the
+        same kind of data, but in different years. Tagging them all as
+        simply #affected loses important information about the
+        series. The solution is to use an extra attribute, +label, to
+        specify that the information in the header is a label for the
+        data series:
+      </p>
       <table>
         <thead>
           <tr>
-            <th>Region</th>
+            <th>REGION</th>
             <th>2008</th>
             <th>2009</th>
             <th>2010</th>
             <th>2011</th>
           </tr>
           <tr class="hxl">
-            <td>#adm1</td>
+            <td>#adm1 +name</td>
             <td>#affected+label</td>
             <td>#affected+label</td>
             <td>#affected+label</td>
@@ -368,43 +922,98 @@
     </section>
   </section>
   <section id="changes">
-    <h1>Appendix A:  Changes from previous versions</h1>
-    <p>Changes from <a href="/standard/1_0beta/tagging/">1.0 beta</a> to 1.0 final:</p>
+    <h2>Appendix A: Changes from previous versions</h2>
+    <p>
+      Major changes from <a
+      href="https://hxlstandard.org/standard/1_0final">1.0 final</a>
+      to 1.1 final:
+    </p>
+    <ul>
+      <li>Added JSON encodings.</li>
+      <li>Added +v_* vocabulary attributes.</li>
+      <li>Prefix language attributes with +i_ so that +fr in HXL 1.0 becomes +i_fr in HXL 1.1.</li>
+      <li>Added +list attribute and convention for multiple values in a single cell.</li>
+      <li>Reserved all attributes beginning with a single letter
+      followed by underscore for future use.</li>
+    </ul>
+    <p>
+      Changes from <a href="https://hxlstandard.org/standard/1_0beta/tagging/">1.0 beta</a> to 1.0 final:
+    </p>
     <ul>
       <li>Explicitly state that the text of the standard is released into the public domain.</li>
       <li>Many minor copy-editing and text-formatting changes.</li>
     </ul>
-    <p>Changes from <a href="/standard/1_0alpha/tagging/">1.0 alpha</a> to <a href="/standard/1_0beta/tagging/">1.0 beta</a>:</p>
+    <p>
+      Changes from <a href="https://hxlstandard.org/standard/1_0alpha/tagging/">1.0 alpha</a> to 1.0 beta:
+    </p>
     <ul>
       <li>Removed compact disaggregated syntax and language extensions.</li>
-      <li>Added tag attributes.</li>
+      <li>Added hashtag attributes.</li>
       <li>Added recommendations for language attributes.</li>
     </ul>
   </section>
   <section id="grammar">
-    <h1>Appendix B: Formal grammar of a HXL tag</h1>
-    <p>The following Backus-Naur Form grammar, with regular expressions, defines the allowed content of a HXL tag (terminals are in uppercase):</p>
-    <pre>&lt;hxl-tag&gt;               ::= &lt;tag&gt;
-    | &lt;tag&gt; &lt;attributes&gt;
-    | &lt;tag&gt; WHITESPACE &lt;attributes&gt;
+    <h2>Appendix B: Formal grammar of a HXL hashtag </h2>
+    <p>
+      The following Backus-Naur Form grammar, with regular
+      expressions, defines the allowed content of a HXL hashtag
+      (terminals are in uppercase):
+    </p>
+    <blockqoute>
+      <pre>&lt;hxl-tagspec&gt;           ::= &lt;hashtag&gt;
+    | &lt;hashtag&gt; &lt;attributes&gt;
+    | &lt;hashtag&gt; WHITESPACE &lt;attributes&gt;
 
-    &lt;attributes&gt;            ::= &lt;attribute&gt;
+&lt;attributes&gt;            ::= &lt;attribute&gt;
     | &lt;attributes&gt; &lt;attribute&gt;
     | &lt;attributes&gt; WHITESPACE &lt;attribute&gt;
 
-    &lt;tag&gt;                   ::=    "#" TOKEN
+&lt;hashtag&gt;               ::=    "#" TOKEN
 
-    &lt;attribute&gt;             ::= "+" TOKEN
+&lt;attribute&gt;             ::= "+" TOKEN
 
-    TOKEN                   ::=      /[a-zA-Z][a-zA-Z0-9_]*/
+TOKEN                   ::=      /[a-zA-Z][a-zA-Z0-9_]*/
 
-    WHITESPACE              ::=    /[ \t\n\r]+/</pre>
+WHITESPACE              ::=    /[ \t\n\r]+/</pre>
+    </blockqoute>
   </section>
   <section id="credits">
-    <h1>Appendix C: Credits</h1>
-    <p>HXL is a group effort of many people and organisations, including a wider community of over 100 members of the hxlproject@googlegroups.com public mailing list.  Chad Hendrix (OCHA) was the founder of the HXL standards effort, and Carsten Keßler (Hunter College) was the original technical lead. Since 2013, Sarah Telford (OCHA) has been overall programme manager and David Megginson (OCHA) has served as standards lead and chair, while John Crowley  helped with outreach and governance  in late 2014 and early 2015, and Aidan McGuire (ScraperWiki) has provided project management since 2015. Generous funding for HXL research and development in 2014 came from the Humanitarian Innovation Fund, and OCHA has supported continuing work. The Paul Allen Foundation has generously agreed to fund HXL work through 2016.</p>
-    <p>During 2014, the HXL Working Group included Albert Gembara (USAID), Andrej Verity (OCHA), Andrew Alspach (UNHCR), David Megginson (OCHA), Gavin Wood (UNICEF), John Crowley (World Bank), Lauren Burns (Save the Children), Maurizio Blasilli (WFP), Muhammad Rizki (IOM, later replaced by Ivan Vukovic), and Paul Currion (Humanitarian Innovation Fund).
+    <h2>Appendix C: Credits</h2>
+    <p>
+      HXL is a group effort of many people and organisations,
+      including a wider community of over 100 members of the <a
+      href="mailto:hxlproject@googlegroups.com">hxlproject@googlegroups.com</a>
+      public mailing list. C.J. Hendrix (OCHA) was the founder of the
+      HXL standards effort, and Carsten Keßler (Hunter College) was
+      the original technical lead. Since 2013, Sarah Telford (OCHA)
+      has been overall programme manager and David Megginson (OCHA)
+      has served as standards lead and chair, while John Crowley
+      helped with outreach and governance in late 2014 and early 2015,
+      and Aidan McGuire (ScraperWiki) has provided project management
+      since 2015. Generous funding for HXL research and development in
+      2014 came from the Humanitarian Innovation Fund, and OCHA has
+      supported continuing work. The Paul Allen Foundation has
+      generously agreed to fund HXL work through 2016.
     </p>
-    <p> Beginning in 2015, the HXL Working Group has included Andrej Verity (OCHA), David Megginson (OCHA), John Adams (DFID), John Crowley (originally, World Bank), Justine Mackinnon (Standby Task Force), Laurent Pitoiset (UNHCR), Sara-Jayne Terp (ThoughtWorks), and Simon Johnson (British Red Cross).</p>
+    <p>
+      During 2014, the HXL Working Group included Albert Gembara
+      (USAID), Andrej Verity (OCHA), Andrew Alspach (UNHCR), David
+      Megginson (OCHA), Gavin Wood (UNICEF), John Crowley (World
+      Bank), Lauren Burns (Save the Children), Maurizio Blasilli
+      (WFP), Muhammad Rizki (IOM, later replaced by Ivan Vukovic), and
+      Paul Currion (Humanitarian Innovation Fund).
+    </p>
+    <p>
+      From 2015 to the time of the HXL 1.1 release, the HXL Working
+      Group has at various times included Aidan McGuire (OCHA), Andrej
+      Verity (OCHA), CJ Hendrix (OCHA), David Megginson (OCHA),
+      Guillaume Nanin, Helen Campbell (IFRC), Jan Rapp (INSO), John
+      Adams (DFID), John Crowley (originally, World Bank), Justine
+      Mackinnon, Kashif Nadeem (IOM), Laurent Pitoiset (UNHCR), Mike
+      Rans (OCHA), Sara-Jayne Terp (ThoughtWorks), Simon Johnson
+      (British Red Cross), Vincent Trousseau (CaLP and World Vision), and Wesley DeWitt (World Bank). Thank you
+      also to the Standby Taskforce for their participation.
+    </p>
   </section>
-</main>
+</section>
+</div>
