@@ -104,7 +104,7 @@
     <section id="tagging.spreadsheet">
       <h3>2.1 Spreadsheet Data eg. csv, xls, xlsx</h3>
       <p>
-          Consider the following simple spreadsheet:
+        Consider the following simple spreadsheet:
       </p>
       <table>
         <thead>
@@ -263,38 +263,38 @@
           each row is a lookup between a hashtag key and a value:
         </p>
         <pre>[
-  {
-    "#hashtag": value,
-    "#hashtag": value
-  },
-  {
-    "#hashtag": value,
-    "#hashtag": value
-  }
-]</pre>
+        {
+        "#hashtag": value,
+        "#hashtag": value
+        },
+        {
+        "#hashtag": value,
+        "#hashtag": value
+        }
+        ]</pre>
         <p>
           An example of this is shown below:
         </p>
         <pre>[
-  {
-    "#event+id": 1,
-    "#affected+killed": 1,
-    "#region": "Mediterranean",
-    "#meta+source+reliability": "Verified",
-    "#date+reported": "05/11/2015",
-    "#geo+lat": 36.891500,
-    "#geo+lon": 27.287700
-  },
-  {
-    "#event+id": 3,
-    "#affected+killed": 1,
-    "#region": "Central America incl. Mexico",
-    "#meta+source+reliability": "Partially Verified",
-    "#date+reported": "03/11/2015",
-    "#geo+lat": 15.956400,
-    "#geo+lon": -93.663100
-  }
-]</pre>
+        {
+        "#event+id": 1,
+        "#affected+killed": 1,
+        "#region": "Mediterranean",
+        "#meta+source+reliability": "Verified",
+        "#date+reported": "05/11/2015",
+        "#geo+lat": 36.891500,
+        "#geo+lon": 27.287700
+        },
+        {
+        "#event+id": 3,
+        "#affected+killed": 1,
+        "#region": "Central America incl. Mexico",
+        "#meta+source+reliability": "Partially Verified",
+        "#date+reported": "03/11/2015",
+        "#geo+lat": 15.956400,
+        "#geo+lon": -93.663100
+        }
+        ]</pre>
         <p>
           For repeated same named hashtags eg. to express multiple
           sectors using repeated #sector columns, the equivalent in
@@ -343,18 +343,18 @@
           once in the first element of the Array:
         </p>
         <pre>[
-  ["#hashtag", "#hashtag"],
-  [value,value],
-  [value,value]
-]</pre>
+        ["#hashtag", "#hashtag"],
+        [value,value],
+        [value,value]
+        ]</pre>
         <p>
           Below is an example:
         </p>
         <pre>[
-  ["#event+id","#affected+killed","#region","#meta+source+reliability", "#date+reported","#geo+lat","#geo+lon"],
-  [1, 1, "Mediterranean", "Verified", "2015-11-05", 36.891500,27.287700],
-  [3, 1, "Central America incl. Mexico", "Partially Verified", "2015-11-03", 15.956400, -93.663099]
-]</pre>
+        ["#event+id","#affected+killed","#region","#meta+source+reliability", "#date+reported","#geo+lat","#geo+lon"],
+        [1, 1, "Mediterranean", "Verified", "2015-11-05", 36.891500,27.287700],
+        [3, 1, "Central America incl. Mexico", "Partially Verified", "2015-11-03", 15.956400, -93.663099]
+        ]</pre>
         <p>
           If headers are needed, they can be added as an extra array prior to the hashtags.
         </p>
@@ -419,7 +419,7 @@
             some type) for a funding organisation
           </li>
           <li>
-            #adm1 +name +fr — the name of an administrative
+            #adm1 +name +i_fr — the name of an administrative
             level-one subdivision, in French
           </li>
           <li>
@@ -734,13 +734,13 @@
           example would look like this:
         </p>
         <pre>[
-  ["P-CODE 1", "P-CODE 2", "P-CODE 3"],              
-  ["#loc+code", "#loc+code", "#loc+code"],
-  ["020503"],
-  ["060107", "060108"],
-  ["173219"],
-  ["530013", "530015", "279333"]
-]</pre>
+        ["P-CODE 1", "P-CODE 2", "P-CODE 3"],              
+        ["#loc+code", "#loc+code", "#loc+code"],
+        ["020503"],
+        ["060107", "060108"],
+        ["173219"],
+        ["530013", "530015", "279333"]
+        ]</pre>
         <p>
           By reading the HXL hashtag, processing software can easily
           recognize that the three columns represent (up to) three
@@ -749,271 +749,271 @@
           software knew nothing about the specific conventions in use
           in this country.
         </p>
-      <section id="special.repeating.list">
-        <h4>4.1.1. The +list attribute</h4>
+        <section id="special.repeating.list">
+          <h4>4.1.1. The +list attribute</h4>
+          <p>
+            New in version 1.1.
+          </p>
+          <p>
+            As an alternative, HXL also supports the inclusion of
+            multiple values in a single field, such as a spreadsheet
+            cell, separated by a comma (or optionally, other
+            punctuation). Note that this method—while popular with
+            spreadsheet users—is not as reliable as using separate
+            columns, and will not allow you to use standard spreadsheet
+            functions for filtering and sorting while creating data. It
+            may also not be as well-supported by HXL-aware tools, such
+            as mapping and other visualisation services.
+          </p>
+          <p>
+            To include multiple values in a single cell, add the +list
+            attribute to the hashtag. Here is the earlier example recast
+            with multiple values in a single cell:
+          </p>
+          <table>
+            <thead>
+              <tr>
+                <th>P-CODE</th>
+              </tr>
+              <tr class="hxl">
+                <td>#loc +code +list</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>020503</td>
+              </tr>
+              <tr>
+                <td>060107, 060108</td>
+              </tr>
+              <tr>
+                <td>173219</td>
+              </tr>
+              <tr>
+                <td>530012</td>
+              </tr>
+              <tr>
+                <td>530013, 530015, 279333</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            This is the only approach currently possible for
+            representing repeating fields using the Array of objects
+            JSON style:
+          </p>
+          <pre>[
+          {
+          "#loc+code+list": "020503"
+          },
+          {
+          "#loc+code+list": "060107,060108"
+          },
+          {
+          "#loc+code+list": "173219"
+          },
+          {
+          "#loc+code+list": "530012"
+          },
+          {
+          "#loc+code+list": "530013,530015,279333"
+          }
+          ]</pre>
+          <p>
+            With the <a href="#tagging.json.arrays">Array of arrays</a>
+            JSON style, the above example would look much like the
+            spreadsheet table:
+          </p>
+          <pre>[
+          ["#loc+code"],
+          ["020503"],
+          ["060107,060108"],
+          ["173219"],
+          ["530013,530015,279333"]
+          ]</pre>
+          <p>
+            Note, again, that some HXL-aware software might not process
+            this approach correctly, and that it can affect the display
+            of reports, charts, and maps.
+          </p>
+        </section>
+      </section>
+      <section id="special.wide">
+        <h3>4.2. "Wide" (series) data</h3>
         <p>
-          New in version 1.1.
-        </p>
-        <p>
-          As an alternative, HXL also supports the inclusion of
-          multiple values in a single field, such as a spreadsheet
-          cell, separated by a comma (or optionally, other
-          punctuation). Note that this method—while popular with
-          spreadsheet users—is not as reliable as using separate
-          columns, and will not allow you to use standard spreadsheet
-          functions for filtering and sorting while creating data. It
-          may also not be as well-supported by HXL-aware tools, such
-          as mapping and other visualisation services.
-        </p>
-        <p>
-          To include multiple values in a single cell, add the +list
-          attribute to the hashtag. Here is the earlier example recast
-          with multiple values in a single cell:
+          "Wide" datasets are optimised for reading rather
+          than machine processing. They place a series of data (usually
+          numbers) across a row, showing how information varies over
+          time, geographical area, demographic groups, or some other
+          criterion. Here is a simple, non-HXL example listing the
+          number of people of concern in each region during four
+          different years.
         </p>
         <table>
           <thead>
             <tr>
-              <th>P-CODE</th>
-            </tr>
-            <tr class="hxl">
-              <td>#loc +code +list</td>
+              <th>REGION</th>
+              <th>2008</th>
+              <th>2009</th>
+              <th>2010</th>
+              <th>2011</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>020503</td>
+              <td>Coast District</td>
+              <td>0</td>
+              <td>30</td>
+              <td>100</td>
+              <td>250</td>
             </tr>
             <tr>
-              <td>060107, 060108</td>
-            </tr>
-            <tr>
-              <td>173219</td>
-            </tr>
-            <tr>
-              <td>530012</td>
-            </tr>
-            <tr>
-              <td>530013, 530015, 279333</td>
+              <td>Mountain District</td>
+              <td>15</td>
+              <td>75</td>
+              <td>30</td>
+              <td>45</td>
             </tr>
           </tbody>
         </table>
         <p>
-          This is the only approach currently possible for
-          representing repeating fields using the Array of objects
-          JSON style:
+          This table presents some special challenges for tagging,
+          because the columns headed "2008" to "2011" all represent the
+          same kind of data, but in different years. Tagging them all as
+          simply #affected loses important information about the
+          series. The solution is to use an extra attribute, +label, to
+          specify that the information in the header is a label for the
+          data series:
         </p>
-        <pre>[
-  {
-    "#loc+code+list": "020503"
-  },
-  {
-    "#loc+code+list": "060107,060108"
-  },
-  {
-    "#loc+code+list": "173219"
-  },
-  {
-    "#loc+code+list": "530012"
-  },
-  {
-    "#loc+code+list": "530013,530015,279333"
-  }
-]</pre>
-        <p>
-          With the <a href="#tagging.json.arrays">Array of arrays</a>
-          JSON style, the above example would look much like the
-          spreadsheet table:
-        </p>
-        <pre>[
-  ["#loc+code"],
-  ["020503"],
-  ["060107,060108"],
-  ["173219"],
-  ["530013,530015,279333"]
-]</pre>
-        <p>
-          Note, again, that some HXL-aware software might not process
-          this approach correctly, and that it can affect the display
-          of reports, charts, and maps.
-        </p>
+        <table>
+          <thead>
+            <tr>
+              <th>REGION</th>
+              <th>2008</th>
+              <th>2009</th>
+              <th>2010</th>
+              <th>2011</th>
+            </tr>
+            <tr class="hxl">
+              <td>#adm1 +name</td>
+              <td>#affected+label</td>
+              <td>#affected+label</td>
+              <td>#affected+label</td>
+              <td>#affected+label</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Coast District</td>
+              <td>0</td>
+              <td>30</td>
+              <td>100</td>
+              <td>250</td>
+            </tr>
+            <tr>
+              <td>Mountain District</td>
+              <td>15</td>
+              <td>75</td>
+              <td>30</td>
+              <td>45</td>
+            </tr>
+          </tbody>
+        </table>
       </section>
     </section>
-    <section id="special.wide">
-      <h3>4.2. "Wide" (series) data</h3>
+    <section id="changes">
+      <h2>Appendix A: Changes from previous versions</h2>
       <p>
-        "Wide" datasets are optimised for reading rather
-        than machine processing. They place a series of data (usually
-        numbers) across a row, showing how information varies over
-        time, geographical area, demographic groups, or some other
-        criterion. Here is a simple, non-HXL example listing the
-        number of people of concern in each region during four
-        different years.
+        Major changes from <a
+        href="https://hxlstandard.org/standard/1_0final">1.0 final</a>
+        to 1.1 final:
       </p>
-      <table>
-        <thead>
-          <tr>
-            <th>REGION</th>
-            <th>2008</th>
-            <th>2009</th>
-            <th>2010</th>
-            <th>2011</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Coast District</td>
-            <td>0</td>
-            <td>30</td>
-            <td>100</td>
-            <td>250</td>
-          </tr>
-          <tr>
-            <td>Mountain District</td>
-            <td>15</td>
-            <td>75</td>
-            <td>30</td>
-            <td>45</td>
-          </tr>
-        </tbody>
-      </table>
+      <ul>
+        <li>Added JSON encodings.</li>
+        <li>Added +v_* vocabulary attributes.</li>
+        <li>Prefix language attributes with +i_ so that +i_fr in HXL 1.0 becomes +i_fr in HXL 1.1.</li>
+        <li>Added +list attribute and convention for multiple values in a single cell.</li>
+        <li>Reserved all attributes beginning with a single letter
+        followed by underscore for future use.</li>
+      </ul>
       <p>
-        This table presents some special challenges for tagging,
-        because the columns headed "2008" to "2011" all represent the
-        same kind of data, but in different years. Tagging them all as
-        simply #affected loses important information about the
-        series. The solution is to use an extra attribute, +label, to
-        specify that the information in the header is a label for the
-        data series:
+        Changes from <a href="https://hxlstandard.org/standard/1_0beta/tagging/">1.0 beta</a> to 1.0 final:
       </p>
-      <table>
-        <thead>
-          <tr>
-            <th>REGION</th>
-            <th>2008</th>
-            <th>2009</th>
-            <th>2010</th>
-            <th>2011</th>
-          </tr>
-          <tr class="hxl">
-            <td>#adm1 +name</td>
-            <td>#affected+label</td>
-            <td>#affected+label</td>
-            <td>#affected+label</td>
-            <td>#affected+label</td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Coast District</td>
-            <td>0</td>
-            <td>30</td>
-            <td>100</td>
-            <td>250</td>
-          </tr>
-          <tr>
-            <td>Mountain District</td>
-            <td>15</td>
-            <td>75</td>
-            <td>30</td>
-            <td>45</td>
-          </tr>
-        </tbody>
-      </table>
+      <ul>
+        <li>Explicitly state that the text of the standard is released into the public domain.</li>
+        <li>Many minor copy-editing and text-formatting changes.</li>
+      </ul>
+      <p>
+        Changes from <a href="https://hxlstandard.org/standard/1_0alpha/tagging/">1.0 alpha</a> to 1.0 beta:
+      </p>
+      <ul>
+        <li>Removed compact disaggregated syntax and language extensions.</li>
+        <li>Added hashtag attributes.</li>
+        <li>Added recommendations for language attributes.</li>
+      </ul>
+    </section>
+    <section id="grammar">
+      <h2>Appendix B: Formal grammar of a HXL hashtag </h2>
+      <p>
+        The following Backus-Naur Form grammar, with regular
+        expressions, defines the allowed content of a HXL hashtag
+        (terminals are in uppercase):
+      </p>
+      <blockqoute>
+        <pre>&lt;hxl-tagspec&gt;           ::= &lt;hashtag&gt;
+        | &lt;hashtag&gt; &lt;attributes&gt;
+        | &lt;hashtag&gt; WHITESPACE &lt;attributes&gt;
+
+        &lt;attributes&gt;            ::= &lt;attribute&gt;
+        | &lt;attributes&gt; &lt;attribute&gt;
+        | &lt;attributes&gt; WHITESPACE &lt;attribute&gt;
+
+        &lt;hashtag&gt;               ::=    "#" TOKEN
+
+        &lt;attribute&gt;             ::= "+" TOKEN
+
+        TOKEN                   ::=      /[a-zA-Z][a-zA-Z0-9_]*/
+
+        WHITESPACE              ::=    /[ \t\n\r]+/</pre>
+      </blockqoute>
+    </section>
+    <section id="credits">
+      <h2>Appendix C: Credits</h2>
+      <p>
+        HXL is a group effort of many people and organisations,
+        including a wider community of over 100 members of the <a
+        href="mailto:hxlproject@googlegroups.com">hxlproject@googlegroups.com</a>
+        public mailing list. C.J. Hendrix (OCHA) was the founder of the
+        HXL standards effort, and Carsten Keßler (Hunter College) was
+        the original technical lead. Since 2013, Sarah Telford (OCHA)
+        has been overall programme manager and David Megginson (OCHA)
+        has served as standards lead and chair, while John Crowley
+        helped with outreach and governance in late 2014 and early 2015,
+        and Aidan McGuire (ScraperWiki) has provided project management
+        since 2015. Generous funding for HXL research and development in
+        2014 came from the Humanitarian Innovation Fund, and OCHA has
+        supported continuing work. The Paul Allen Foundation has
+        generously agreed to fund HXL work through 2016.
+      </p>
+      <p>
+        During 2014, the HXL Working Group included Albert Gembara
+        (USAID), Andrej Verity (OCHA), Andrew Alspach (UNHCR), David
+        Megginson (OCHA), Gavin Wood (UNICEF), John Crowley (World
+        Bank), Lauren Burns (Save the Children), Maurizio Blasilli
+        (WFP), Muhammad Rizki (IOM, later replaced by Ivan Vukovic), and
+        Paul Currion (Humanitarian Innovation Fund).
+      </p>
+      <p>
+        From 2015 to the time of the HXL 1.1 release, the HXL Working
+        Group has at various times included Aidan McGuire (OCHA), Andrej
+        Verity (OCHA), CJ Hendrix (OCHA), David Megginson (OCHA),
+        Guillaume Nanin, Helen Campbell (IFRC), Jan Rapp (INSO), John
+        Adams (DFID), John Crowley (originally, World Bank), Justine
+        Mackinnon, Kashif Nadeem (IOM), Laurent Pitoiset (UNHCR), Mike
+        Rans (OCHA), Sara-Jayne Terp (ThoughtWorks), Simon Johnson
+        (British Red Cross), Vincent Trousseau (CaLP and World Vision), and Wesley DeWitt (World Bank). Thank you
+        also to the Standby Taskforce for their participation.
+      </p>
     </section>
   </section>
-  <section id="changes">
-    <h2>Appendix A: Changes from previous versions</h2>
-    <p>
-      Major changes from <a
-      href="https://hxlstandard.org/standard/1_0final">1.0 final</a>
-      to 1.1 final:
-    </p>
-    <ul>
-      <li>Added JSON encodings.</li>
-      <li>Added +v_* vocabulary attributes.</li>
-      <li>Prefix language attributes with +i_ so that +fr in HXL 1.0 becomes +i_fr in HXL 1.1.</li>
-      <li>Added +list attribute and convention for multiple values in a single cell.</li>
-      <li>Reserved all attributes beginning with a single letter
-      followed by underscore for future use.</li>
-    </ul>
-    <p>
-      Changes from <a href="https://hxlstandard.org/standard/1_0beta/tagging/">1.0 beta</a> to 1.0 final:
-    </p>
-    <ul>
-      <li>Explicitly state that the text of the standard is released into the public domain.</li>
-      <li>Many minor copy-editing and text-formatting changes.</li>
-    </ul>
-    <p>
-      Changes from <a href="https://hxlstandard.org/standard/1_0alpha/tagging/">1.0 alpha</a> to 1.0 beta:
-    </p>
-    <ul>
-      <li>Removed compact disaggregated syntax and language extensions.</li>
-      <li>Added hashtag attributes.</li>
-      <li>Added recommendations for language attributes.</li>
-    </ul>
-  </section>
-  <section id="grammar">
-    <h2>Appendix B: Formal grammar of a HXL hashtag </h2>
-    <p>
-      The following Backus-Naur Form grammar, with regular
-      expressions, defines the allowed content of a HXL hashtag
-      (terminals are in uppercase):
-    </p>
-    <blockqoute>
-      <pre>&lt;hxl-tagspec&gt;           ::= &lt;hashtag&gt;
-    | &lt;hashtag&gt; &lt;attributes&gt;
-    | &lt;hashtag&gt; WHITESPACE &lt;attributes&gt;
-
-&lt;attributes&gt;            ::= &lt;attribute&gt;
-    | &lt;attributes&gt; &lt;attribute&gt;
-    | &lt;attributes&gt; WHITESPACE &lt;attribute&gt;
-
-&lt;hashtag&gt;               ::=    "#" TOKEN
-
-&lt;attribute&gt;             ::= "+" TOKEN
-
-TOKEN                   ::=      /[a-zA-Z][a-zA-Z0-9_]*/
-
-WHITESPACE              ::=    /[ \t\n\r]+/</pre>
-    </blockqoute>
-  </section>
-  <section id="credits">
-    <h2>Appendix C: Credits</h2>
-    <p>
-      HXL is a group effort of many people and organisations,
-      including a wider community of over 100 members of the <a
-      href="mailto:hxlproject@googlegroups.com">hxlproject@googlegroups.com</a>
-      public mailing list. C.J. Hendrix (OCHA) was the founder of the
-      HXL standards effort, and Carsten Keßler (Hunter College) was
-      the original technical lead. Since 2013, Sarah Telford (OCHA)
-      has been overall programme manager and David Megginson (OCHA)
-      has served as standards lead and chair, while John Crowley
-      helped with outreach and governance in late 2014 and early 2015,
-      and Aidan McGuire (ScraperWiki) has provided project management
-      since 2015. Generous funding for HXL research and development in
-      2014 came from the Humanitarian Innovation Fund, and OCHA has
-      supported continuing work. The Paul Allen Foundation has
-      generously agreed to fund HXL work through 2016.
-    </p>
-    <p>
-      During 2014, the HXL Working Group included Albert Gembara
-      (USAID), Andrej Verity (OCHA), Andrew Alspach (UNHCR), David
-      Megginson (OCHA), Gavin Wood (UNICEF), John Crowley (World
-      Bank), Lauren Burns (Save the Children), Maurizio Blasilli
-      (WFP), Muhammad Rizki (IOM, later replaced by Ivan Vukovic), and
-      Paul Currion (Humanitarian Innovation Fund).
-    </p>
-    <p>
-      From 2015 to the time of the HXL 1.1 release, the HXL Working
-      Group has at various times included Aidan McGuire (OCHA), Andrej
-      Verity (OCHA), CJ Hendrix (OCHA), David Megginson (OCHA),
-      Guillaume Nanin, Helen Campbell (IFRC), Jan Rapp (INSO), John
-      Adams (DFID), John Crowley (originally, World Bank), Justine
-      Mackinnon, Kashif Nadeem (IOM), Laurent Pitoiset (UNHCR), Mike
-      Rans (OCHA), Sara-Jayne Terp (ThoughtWorks), Simon Johnson
-      (British Red Cross), Vincent Trousseau (CaLP and World Vision), and Wesley DeWitt (World Bank). Thank you
-      also to the Standby Taskforce for their participation.
-    </p>
-  </section>
-</section>
 </div>
